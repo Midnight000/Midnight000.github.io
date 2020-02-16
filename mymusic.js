@@ -31,8 +31,8 @@ update(0);
 changeIcon(1);
 //初始化
 function changeIcon(x){
-  if(x===0)controlIcon[1].src="pause.png";
-  else controlIcon[1].src="play.png";
+  if(x===0)controlIcon[1].src="img/pause.png";
+  else controlIcon[1].src="img/play.png";
 }
 //更新当前播放歌曲信息
 function update(index){
