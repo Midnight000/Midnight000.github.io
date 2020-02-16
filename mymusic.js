@@ -31,8 +31,8 @@ update(0);
 changeIcon(1);
 //初始化
 function changeIcon(x){
-  if(x===0)controlIcon[1].src="img/pause.png";
-  else controlIcon[1].src="img/play.png";
+  if(x===0)controlIcon[1].src="./img/pause.png";
+  else controlIcon[1].src="./img/play.png";
 }
 //更新当前播放歌曲信息
 function update(index){
@@ -44,6 +44,10 @@ function update(index){
   musicNode.play();
   changeIcon(0);
   playing=index;
+  clearInterval(musicTimer);
+  musicTimer=setInterval(function(){
+      setTimeAndProcess();
+    },10)
 }
 //定义设定当前歌曲时间
 function setTimeAndProcess(){
