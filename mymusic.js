@@ -1,15 +1,9 @@
-
-
-
-
-
-
 var songName = document.getElementById("songname");
 var singerName = document.getElementById("singername");
 var musicImage = document.getElementsByClassName("song_img")[0];
 var musicList = document.getElementsByTagName("li");
 var musicNode = document.getElementsByTagName("audio")[0];
-var musicSrcList = ["http://win.web.rc01.sycdn.kuwo.cn/d3ac9245e69269be0258c6cf1d1b634a/5e4ab79a/resource/n1/46/99/2044767713.mp3",
+var musicSrcList = ["http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_1022443&response=res&type=convert_url&",
 "http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_156521&response=res&type=convert_url&",
 "http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_116017&response=res&type=convert_url&"];
 var musicImageList = ["http://img3.kuwo.cn/star/albumcover/300/33/62/1408218390.jpg",
@@ -168,8 +162,8 @@ processScroll.onmousedown=function (event) {
 }
 //定义音量放送
 volumeScroll.onmousedown=function (event) {
-  document.onmousemove=function(event){
-    var e=event;
+  set(event);
+  function set(e){
     var leftLen=e.clientX-volumeScroll.offsetLeft;
     if(leftLen<0){
       volumeMask.style.width="0"
@@ -184,9 +178,11 @@ volumeScroll.onmousedown=function (event) {
       volumeBar.style.left=leftLen+"px";
     }
     musicNode.volume=leftLen/100;
+  }
+  document.onmousemove=function(event){
+    set(event);
     window.getSelection ? window.getSelection().removeAllRanges():document.selection.empty();
   }
-  that=this;
   document.onmouseup=function (evetn) {
     document.onmousemove=null;
   }
