@@ -9,14 +9,14 @@ var singerName = document.getElementById("singername");
 var musicImage = document.getElementsByClassName("song_img")[0];
 var musicList = document.getElementsByTagName("li");
 var musicNode = document.getElementsByTagName("audio")[0];
-var musicSrcList = ["http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_55923158&response=res&type=convert_url&",
-"http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_28510075&response=res&type=convert_url&",
-"http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_40602735&response=res&type=convert_url&"];
-var musicImageList = ["http://img4.kuwo.cn/star/albumcover/300/31/42/988428673.jpg",
-  "http://img1.kuwo.cn/star/albumcover/300/72/96/2566658895.jpg",
-"http://img1.kuwo.cn/star/albumcover/300/4/97/1338753900.jpg"];
-var singerNameList = ["米奇律师","米奇律师","米奇律师"];
-var songNameList = ["LOSER","打上花火","Lemon"];
+var musicSrcList = ["http://win.web.rc01.sycdn.kuwo.cn/d3ac9245e69269be0258c6cf1d1b634a/5e4ab79a/resource/n1/46/99/2044767713.mp3",
+"http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_156521&response=res&type=convert_url&",
+"http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_116017&response=res&type=convert_url&"];
+var musicImageList = ["http://img3.kuwo.cn/star/albumcover/300/33/62/1408218390.jpg",
+  "http://img4.kuwo.cn/star/albumcover/300/14/76/860786194.jpg",
+"http://img3.kuwo.cn/star/albumcover/300/77/69/2370217441.jpg"];
+var singerNameList = ["Jay Chou","Jay Chou","Jay Chou"];
+var songNameList = ["天地一斗","Ninja","最后的战役"];
 var len = musicList.length;
 var playing;
 var currentTime=document.getElementsByClassName("song_now_time")[0];
@@ -32,6 +32,8 @@ var volumeScroll = document.getElementsByClassName("volume_scroll")[0];
 var volumeBar = volumeScroll.children[0];
 var volumeMask = volumeScroll.children[1];
 //初始化
+volumeMask.style.width=100+"px";
+volumeBar.style.left=100+"px";
 update(0);
 clearInterval(musicTimer);
 changeIcon(1);
