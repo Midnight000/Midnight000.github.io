@@ -25,9 +25,12 @@ var musicTimer;
 var barFollow=true;
 var timeFollow=true;
 var controlIcon=document.getElementsByClassName("con_c_img");
-var scroll = document.getElementsByClassName("scroll")[0];
-var bar = scroll.children[0];
-var mask = scroll.children[1];
+var processScroll = document.getElementsByClassName("process_scroll")[0];
+var processBar = processScroll.children[0];
+var processMask = processScroll.children[1];
+var volumeScroll = document.getElementsByClassName("volume_scroll")[0];
+var volumeBar = volumeScroll.children[0];
+var volumeMask = volumeScroll.children[1];
 //初始化
 update(0);
 clearInterval(musicTimer);
@@ -64,8 +67,8 @@ function setTimeAndProcess(){
   }
   if(barFollow) {
     var proportion = tmp / musicNode.duration;
-    bar.style.left = proportion * 400 + "px";
-    mask.style.width = bar.style.left;
+    processBar.style.left = proportion * 400 + "px";
+    processMask.style.width = processBar.style.left;
   }
 }
 
@@ -109,11 +112,11 @@ musicNode.onended=function () {
   update(playing);
 }
 // 定义拖动条组件
-scroll.onmousemove=function (event){
+processScroll.onmousemove=function (event){
   timeFollow=false;
   var e=event||window.event;
   var leftLen;
-  leftLen=e.clientX-2-scroll.offsetLeft;
+  leftLen=e.clientX-2-processScroll.offsetLeft;
   if(leftLen<0)leftLen=0;
   if(leftLen>400)leftLen=400
   var tmp=musicNode.duration*(leftLen/400);
@@ -127,23 +130,26 @@ scroll.onmousemove=function (event){
     currentTime.innerHTML=(fen>9?fen:("0"+fen))+":"+(sec>9?sec:("0"+sec));
   }
 }
-scroll.onmousedown=function (event) {
+processScroll.onmousedown=function (event) {
   barFollow=false;
+  timeFollow=false;
   var e=event||window.event;
-  var barr=bar;
+  var barr=processBar;
   var leftLen;
-  leftLen=e.clientX-2-scroll.offsetLeft;
+  leftLen=e.clientX-2-processScroll.offsetLeft;
   barr.style.left=leftLen+"px";
   if(leftLen<0)barr.style.left="0";
   else if(leftLen>400)barr.style.left=400+"px";
-  mask.style.width=barr.style.left;
+  processMask.style.width=barr.style.left;
   document.onmousemove=function(event){
     var e=event||window.event;
-    leftLen=e.clientX-2-scroll.offsetLeft;
+    leftLen=e.clientX-2-processScroll.offsetLeft;
     barr.style.left=leftLen+"px";
     if(leftLen<0)barr.style.left="0";
     else if(leftLen>400)barr.style.left=400+"px";
-    mask.style.width=barr.style.left;
+    processMask.style.width=barr.style.left;
+    if(leftLen<0)leftLen=0;
+    else if(leftLen>400)leftLen=400;
     var tmp=leftLen/400*musicNode.duration;
     var sec=Math.floor(tmp%60),fen=Math.floor(tmp/60);
     currentTime.innerHTML=(fen>9?fen:("0"+fen))+":"+(sec>9?sec:("0"+sec));
@@ -151,6 +157,7 @@ scroll.onmousedown=function (event) {
   }
   var that=this;
   document.onmouseup=function () {
+    timeFollow=true;
     if(musicNode.paused)controlIcon[1].onclick();
     musicNode.currentTime=Math.floor(leftLen*musicNode.duration/400);
     document.onmousemove=null;
@@ -159,3 +166,27 @@ scroll.onmousedown=function (event) {
   }
 }
 //定义音量放送
+volumeScroll.onmousedown=function (event) {
+  document.onmousemove=function(event){
+    var e=event;
+    var leftLen=e.clientX-volumeScroll.offsetLeft;
+    if(leftLen<0){
+      volumeMask.style.width="0"
+      volumeBar.style.left="0";
+    }
+    else if(leftLen>100){
+      volumeMask.style.width=100+"px"
+      volumeBar.style.left=100+"px";
+    }
+    else{
+      volumeMask.style.width=leftLen+"px"
+      volumeBar.style.left=leftLen+"px";
+    }
+    musicNode.volume=leftLen/100;
+    window.getSelection ? window.getSelection().removeAllRanges():document.selection.empty();
+  }
+  that=this;
+  document.onmouseup=function (evetn) {
+    document.onmousemove=null;
+  }
+}

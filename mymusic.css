@@ -58,11 +58,6 @@
   width: 33.33%;
   flex: auto;
 }
-.con_c div{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .con_l .song_img{
   margin-right: 20px;
   width: 70px;
@@ -79,7 +74,7 @@
   display: flex;
 
 }
-.scroll{
+.process_scroll{
   height: 5px;
   width: 405px;
   border-radius: 10px;
@@ -88,7 +83,7 @@
   position: relative;
 }
 
-.con_l .scroll .bar{
+.process_bar{
   height: 10px;
   width: 10px;
   border-radius: 10px;
@@ -98,17 +93,67 @@
   top: -2px;
   left: 0;
 }
-.con_l .scroll .mask{
+.process_mask{
   height: 5px;
   width: 0;
   border-radius: 10px;
   background-color: #30c784;
   position: absolute;
 }
-.con_c .con_c_img{
+.volume_div{
+  width: 40px;
+}
+.volume_scroll{
+  transition:  all 0s linear 2s;
+  visibility: hidden;
+  position: relative;
+  top: 12.5px;
+  width: 105px;
+  height: 5px;
+  border-radius: 10px;
+  background-color: #888888;
+}
+.volume_div:hover .volume_scroll{
+  transition: all 0s linear 0s;
+  visibility: visible;
+}
+.volume_mask{
+  transition: all 0s linear 2s;
+  visibility: hidden;
+  height: 5px;
+  width: 0;
+  border-radius: 10px;
+  background-color: #30c784;
+  position: absolute;
+}
+.volume_div:hover .volume_mask{
+  transition: all 0s linear 0s;
+  visibility: visible;
+}
+.volume_bar{
+  transition: all 0s linear 2s;
+  visibility: hidden;
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+  background-color: #30c784;
+  position: absolute;
+  top: -2px;
+  z-index: 100;
+}
+.volume_div:hover .volume_bar{
+  transition: all 0s linear 0s;
+  visibility: visible;
+}
+.con_c_img{
+  transition: all 0s linear 2s;
   cursor:pointer;
   height: 30px;
   width: 30px;
   margin: 0 10px;
+  visibility: visible;
 }
-.con_c .volume
+.volume_div:hover .con_c_img{
+  transition: all 0s linear 0s;
+  visibility: hidden;
+}
