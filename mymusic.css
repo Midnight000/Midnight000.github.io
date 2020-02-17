@@ -6,7 +6,6 @@
 	outline: none;
 }
 
-
 #tablelist li{
   line-height: 30px;
   cursor: pointer;
@@ -59,6 +58,11 @@
   width: 33.33%;
   flex: auto;
 }
+.con_c div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .con_l .song_img{
   margin-right: 20px;
   width: 70px;
@@ -77,7 +81,7 @@
 }
 .scroll{
   height: 5px;
-  width: 400px;
+  width: 405px;
   border-radius: 10px;
   background-color: #888888;
   margin-top: 10px;
@@ -90,10 +94,16 @@
   border-radius: 10px;
   background-color: #30c784;
   position: absolute;
+  z-index: 100;
   top: -2px;
   left: 0;
 }
 .con_l .scroll .mask{
+  height: 5px;
+  width: 0;
+  border-radius: 10px;
+  background-color: #30c784;
+  position: absolute;
 }
 .con_c .con_c_img{
   cursor:pointer;
@@ -101,3 +111,4 @@
   width: 30px;
   margin: 0 10px;
 }
+.con_c .volume

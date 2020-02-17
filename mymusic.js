@@ -22,12 +22,15 @@ var playing;
 var currentTime=document.getElementsByClassName("song_now_time")[0];
 var fullTime=document.getElementsByClassName("song_complete_time")[0];
 var musicTimer;
+var barFollow=true;
+var timeFollow=true;
 var controlIcon=document.getElementsByClassName("con_c_img");
 var scroll = document.getElementsByClassName("scroll")[0];
 var bar = scroll.children[0];
 var mask = scroll.children[1];
 //初始化
 update(0);
+clearInterval(musicTimer);
 changeIcon(1);
 //初始化
 function changeIcon(x){
@@ -55,11 +58,15 @@ function setTimeAndProcess(){
   var sec=Math.floor(tmp%60),fen=Math.floor(tmp/60);
   fullTime.innerHTML=(fen>9?fen:("0"+fen))+":"+(sec>9?sec:("0"+sec));
   tmp=musicNode.currentTime;
-  sec=Math.floor(tmp%60),fen=Math.floor(tmp/60);
-  currentTime.innerHTML=(fen>9?fen:("0"+fen))+":"+(sec>9?sec:("0"+sec));
-
-  var proportion=tmp/musicNode.duration;
-  bar.style.left=proportion*400+"px";
+  if(timeFollow){
+    sec=Math.floor(tmp%60),fen=Math.floor(tmp/60);
+    currentTime.innerHTML=(fen>9?fen:("0"+fen))+":"+(sec>9?sec:("0"+sec));
+  }
+  if(barFollow) {
+    var proportion = tmp / musicNode.duration;
+    bar.style.left = proportion * 400 + "px";
+    mask.style.width = bar.style.left;
+  }
 }
 
 //定义控件点击动作
@@ -101,16 +108,54 @@ musicNode.onended=function () {
   if (playing === len) playing = 0;
   update(playing);
 }
-//定义拖动条组件
-// bar.onmousedown=function (event) {
-//   var e=event;
-//   var barr=this;
-//   var leftDis=this.style.left;
-//   barr.onmousemove=function(e){
-//     that.style.left=
-//   }
-// }
-//播放定义时间
-function curtime() {
+// 定义拖动条组件
+scroll.onmousemove=function (event){
+  timeFollow=false;
+  var e=event||window.event;
+  var leftLen;
+  leftLen=e.clientX-2-scroll.offsetLeft;
+  if(leftLen<0)leftLen=0;
+  if(leftLen>400)leftLen=400
+  var tmp=musicNode.duration*(leftLen/400);
+  var sec=Math.floor(tmp%60),fen=Math.floor(tmp/60);
+  currentTime.innerHTML=(fen>9?fen:("0"+fen))+":"+(sec>9?sec:("0"+sec));
 
+  this.onmouseleave=function () {
+    timeFollow=true;
+    var tmp=musicNode.currentTime;
+    var sec=Math.floor(tmp%60),fen=Math.floor(tmp/60);
+    currentTime.innerHTML=(fen>9?fen:("0"+fen))+":"+(sec>9?sec:("0"+sec));
+  }
 }
+scroll.onmousedown=function (event) {
+  barFollow=false;
+  var e=event||window.event;
+  var barr=bar;
+  var leftLen;
+  leftLen=e.clientX-2-scroll.offsetLeft;
+  barr.style.left=leftLen+"px";
+  if(leftLen<0)barr.style.left="0";
+  else if(leftLen>400)barr.style.left=400+"px";
+  mask.style.width=barr.style.left;
+  document.onmousemove=function(event){
+    var e=event||window.event;
+    leftLen=e.clientX-2-scroll.offsetLeft;
+    barr.style.left=leftLen+"px";
+    if(leftLen<0)barr.style.left="0";
+    else if(leftLen>400)barr.style.left=400+"px";
+    mask.style.width=barr.style.left;
+    var tmp=leftLen/400*musicNode.duration;
+    var sec=Math.floor(tmp%60),fen=Math.floor(tmp/60);
+    currentTime.innerHTML=(fen>9?fen:("0"+fen))+":"+(sec>9?sec:("0"+sec));
+    window.getSelection ? window.getSelection().removeAllRanges():document.selection.empty();
+  }
+  var that=this;
+  document.onmouseup=function () {
+    if(musicNode.paused)controlIcon[1].onclick();
+    musicNode.currentTime=Math.floor(leftLen*musicNode.duration/400);
+    document.onmousemove=null;
+    document.onmouseup=null;
+    barFollow=true;
+  }
+}
+//定义音量放送
