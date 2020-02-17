@@ -35,7 +35,6 @@ var volumeMask = volumeScroll.children[1];
 volumeMask.style.width=100+"px";
 volumeBar.style.left=100+"px";
 update(0);
-clearInterval(musicTimer);
 changeIcon(1);
 //初始化
 function changeIcon(x){
