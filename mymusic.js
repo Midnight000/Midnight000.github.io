@@ -11,7 +11,7 @@ var musicImageList = ["http://img3.kuwo.cn/star/albumcover/300/33/62/1408218390.
 "http://img3.kuwo.cn/star/albumcover/300/77/69/2370217441.jpg"];
 var singerNameList = ["Jay Chou","Jay Chou","Jay Chou"];
 var songNameList = ["天地一斗","Ninja","最后的战役"];
-var len = musicList.length;
+var len = musicSrcList.length;
 var playing;
 var outFrame=document.getElementsByClassName("outframe")[0];
 var lockIcon=document.getElementsByClassName("lock_img")[0];
