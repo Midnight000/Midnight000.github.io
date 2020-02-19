@@ -80,7 +80,7 @@ function setTimeAndProcess(){
   }
   if(barFollow) {
     var proportion = tmp / musicNode.duration;
-    processBar.style.left = proportion * 400 + "px";
+    processBar.style.left = proportion * processScroll.offsetWidth + "px";
     processMask.style.width = processBar.style.left;
   }
 }
@@ -131,8 +131,8 @@ processScroll.onmousemove=function (event){
   var leftLen;
   leftLen=e.clientX-2-processScroll.offsetLeft;
   if(leftLen<0)leftLen=0;
-  if(leftLen>400)leftLen=400
-  var tmp=musicNode.duration*(leftLen/400);
+  if(leftLen>processScroll.offsetWidth)leftLen=processScroll.offsetWidth
+  var tmp=musicNode.duration*(leftLen/processScroll.offsetWidth);
   var sec=Math.floor(tmp%60),fen=Math.floor(tmp/60);
   currentTime.innerHTML=(fen>9?fen:("0"+fen))+":"+(sec>9?sec:("0"+sec));
 
@@ -152,18 +152,18 @@ processScroll.onmousedown=function (event) {
   leftLen=e.clientX-2-processScroll.offsetLeft;
   barr.style.left=leftLen+"px";
   if(leftLen<0)barr.style.left="0";
-  else if(leftLen>400)barr.style.left=400+"px";
+  else if(leftLen>processScroll.offsetWidth)barr.style.left=processScroll.offsetWidth+"px";
   processMask.style.width=barr.style.left;
   document.onmousemove=function(event){
     var e=event||window.event;
     leftLen=e.clientX-2-processScroll.offsetLeft;
     barr.style.left=leftLen+"px";
     if(leftLen<0)barr.style.left="0";
-    else if(leftLen>400)barr.style.left=400+"px";
+    else if(leftLen>processScroll.offsetWidth)barr.style.left=processScroll.offsetWidth+"px";
     processMask.style.width=barr.style.left;
     if(leftLen<0)leftLen=0;
-    else if(leftLen>400)leftLen=400;
-    var tmp=leftLen/400*musicNode.duration;
+    else if(leftLen>processScroll.offsetWidth)leftLen=processScroll.offsetWidth;
+    var tmp=leftLen/processScroll.offsetWidth*musicNode.duration;
     var sec=Math.floor(tmp%60),fen=Math.floor(tmp/60);
     currentTime.innerHTML=(fen>9?fen:("0"+fen))+":"+(sec>9?sec:("0"+sec));
     window.getSelection ? window.getSelection().removeAllRanges():document.selection.empty();
@@ -172,7 +172,7 @@ processScroll.onmousedown=function (event) {
   document.onmouseup=function () {
     timeFollow=true;
     if(musicNode.paused)controlIcon[1].onclick();
-    musicNode.currentTime=Math.floor(leftLen*musicNode.duration/400);
+    musicNode.currentTime=Math.floor(leftLen*musicNode.duration/processScroll.offsetWidth);
     document.onmousemove=null;
     document.onmouseup=null;
     barFollow=true;
