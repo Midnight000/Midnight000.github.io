@@ -65,6 +65,7 @@ function update(index){
   playing=index;
   clearInterval(musicTimer);
   musicTimer=setInterval(function(){
+      changeIcon(0);
       setTimeAndProcess();
     },10)
 }
