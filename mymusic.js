@@ -34,6 +34,7 @@ volumeMask.style.width=100+"px";
 volumeBar.style.left=100+"px";
 update(0);
 changeIcon(1);
+if(!musicNode.paused)changeIcon(0);
 //初始化
 function changeIcon(x){
   if(x===0)controlIcon[1].src="./img/pause.png";
@@ -65,7 +66,6 @@ function update(index){
   playing=index;
   clearInterval(musicTimer);
   musicTimer=setInterval(function(){
-      changeIcon(0);
       setTimeAndProcess();
     },10)
 }
