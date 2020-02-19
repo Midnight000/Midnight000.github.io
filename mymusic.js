@@ -13,6 +13,10 @@ var singerNameList = ["Jay Chou","Jay Chou","Jay Chou"];
 var songNameList = ["天地一斗","Ninja","最后的战役"];
 var len = musicList.length;
 var playing;
+var outFrame=document.getElementsByClassName("outframe")[0];
+var lockIcon=document.getElementsByClassName("lock_img")[0];
+var locking=false;
+var locker;
 var currentTime=document.getElementsByClassName("song_now_time")[0];
 var fullTime=document.getElementsByClassName("song_complete_time")[0];
 var musicTimer;
@@ -36,6 +40,20 @@ function changeIcon(x){
   else controlIcon[1].src="./img/play.png";
 }
 //更新当前播放歌曲信息
+lockIcon.onclick=function (event) {
+  if(locking===false)
+  {
+    lockIcon.src="./img/padlock.png";
+    locking=true;
+    outFrame.style.bottom="-20px";
+  }
+  else
+  {
+    lockIcon.src="./img/open-padlock.png";
+    locking=false;
+    outFrame.style.bottom="-90px";
+  }
+}
 function update(index){
   songName.innerHTML = songNameList[index];
   singerName.innerHTML = singerNameList[index];
