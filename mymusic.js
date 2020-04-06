@@ -5,7 +5,7 @@ var musicList = document.getElementsByTagName("li");
 var musicNode = document.getElementsByTagName("audio")[0];
 var musicSrcList = ["http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_1022443&response=res&type=convert_url&",
 "http://antiserver.kuwo.cn/anti.s?useless=/resource/&format=mp3&rid=MUSIC_156521&response=res&type=convert_url&",
-"http://win.web.ra01.sycdn.kuwo.cn/6b0c2056fbca477495ce9705b3203050/5e8aa505/resource/n1/320/88/78/2165300147.mp3"];
+"http://antiserver.kuwo.cn/anti.s?useless=<resouce/&format=mp3&rid=MUSIC_728673&response=res&type=convert_url&"];
 var musicImageList = ["http://img3.kuwo.cn/star/albumcover/300/33/62/1408218390.jpg",
   "http://img4.kuwo.cn/star/albumcover/300/14/76/860786194.jpg",
 "http://img2.kuwo.cn/star/albumcover/300/98/24/205164915.jpg"];
